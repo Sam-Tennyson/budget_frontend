@@ -12,7 +12,7 @@ import RootRouter from './routes/RootRouter'
 import { SnackbarUtilConfig } from './shared/Snackbar'
 
 // styles
-import './App.css'
+import './App.scss'
 
 function App() {
 	return (

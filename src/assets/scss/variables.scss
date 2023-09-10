@@ -1,0 +1,44 @@
+// _variable.scss
+
+$none: none;
+$block: block;
+$inline-block:inline-block;
+
+$relative: relative;
+$absolute: absolute;
+$fixed: fixed;
+$sticky: sticky;
+$static: static;
+
+$bottom: bottom;
+$center: center;
+$right: right;
+$left: left;
+$top: top;
+
+$inherit: inherit;
+$initial: initial;
+$unset: unset;
+
+$capitalize: capitalize;
+$uppercase: uppercase;
+$lowercase: lowercase;
+$underline: underline;
+
+$visible:visible;
+$pointer:pointer;
+$hidden: hidden;
+$scroll:scroll;
+$auto:auto;
+
+$body-font-size: 0.9rem;
+$place-holder-font-size: 0.8rem;
+
+$contain: contain;
+$cover: cover;
+$repeat: repeat;
+$no-repeat: no-repeat;
+$base-color: #800000;
+$primary-color: #00ccff;
+$white-color: #fff;
+$red-color: rgb(233, 17, 17);

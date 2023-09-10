@@ -42,7 +42,7 @@ const Dashboard = () => {
 
     return (
         <>
-            <button
+            <button className='btn btn-primary'
                 onClick={handleAdd}
             >Add</button>
         </>
