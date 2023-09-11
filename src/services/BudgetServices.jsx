@@ -1,6 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { API_BASE_URL } from '../api/constants';
+import { UTILS } from '../shared/utils';
 
-let base_url = 'http://localhost:3000/api'
+let base_url = API_BASE_URL
 
 // Define a service using a base URL and expected endpoints
 export const budgetApi = createApi({
@@ -9,15 +11,15 @@ export const budgetApi = createApi({
         baseUrl: base_url, 
         prepareHeaders: (headers, { getState }) => {
             // Get the token from your Redux store or wherever it is stored
-            // const token = getState().auth.token; // Adjust this based on your store structure
+            const token = UTILS.getAuthToken() // Adjust this based on your store structure
 
-            // if (token) {
-            //     headers.set('Authorization', `Bearer ${token}`);
-            // }
+            if (token) {
+                headers.set('Authorization', `Bearer ${token}`);
+            }
 
             // You can add other headers if needed
-            // headers.set('Content-Type', 'application/json');
-            // headers.set("x-api-key", "test")
+            headers.set('Content-Type', 'application/json');
+            headers.set("x-api-key", "test")
             return headers;
         },
     }),

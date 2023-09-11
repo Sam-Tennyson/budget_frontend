@@ -1,0 +1,31 @@
+@import "../../../assets/scss/base.scss";
+
+.modal-class {
+
+    .close_btn {
+        background-color: #fff;
+        border-radius: 0.375rem;
+        width: 32px;
+        height: 32px;
+        position: absolute;
+        border: 0;
+        right: 40px;
+        top: 44px;
+        line-height: 1;
+        padding: 0.44rem;
+        z-index: 1;
+        transform: translate(23px, -25px);
+
+        svg {
+            max-width: 15px;
+            max-height: 15px;
+            cursor: pointer;
+            opacity: 0.5;
+
+            path {
+                fill: $base-color;
+            }
+        }
+
+    }
+}

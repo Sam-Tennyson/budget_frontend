@@ -1,4 +1,5 @@
-import { ROUTE_CONSTANTS } from "../Shared/Routes";
+
+import { ROUTE_CONSTANTS } from "../shared/routes";
 import Dashboard from "../views/Dashboard";
 
 export const PublicRoute = [

@@ -7,14 +7,16 @@ import { PublicRoute } from './PublicRoute'
 
 // libs
 import { BrowserRouter, Navigate, useRoutes } from "react-router-dom";
-import { useSelector } from "react-redux";
 import React from "react";
 
 // constants
 import { AuthRoutes } from "./AuthRoutes";
-import { ROUTE_CONSTANTS } from "../Shared/Routes";
+import { ROUTE_CONSTANTS } from "../shared/routes";
+import { useSelector } from "react-redux";
+import { CONSTANTS } from "../shared/constants";
 
-const DEFAULT_AUTHENTICATED_ROUTE = ROUTE_CONSTANTS.DASHBOARD;
+
+const DEFAULT_AUTHENTICATED_ROUTE = ROUTE_CONSTANTS.HOME;
 const DEFAULT_GUEST_ROUTE = ROUTE_CONSTANTS.DASHBOARD;
 
 const GuestRoutes = () => {
@@ -42,12 +44,12 @@ const AuthenticatedRoutes = () => {
 };
 
 const RootRouter = () => {
-	const isAuthenticated = true;  // remove
-
+	const token = useSelector((state) => state.auth?.token) || CONSTANTS.EMPTY_STRING
+	const isAuthenticated = !!token;  
 	return (
 		<BrowserRouter basename={""}>
 			<AppLayout isAuthenticated={isAuthenticated}>
-				{false ? <AuthenticatedRoutes /> : <GuestRoutes />}
+				{isAuthenticated ? <AuthenticatedRoutes /> : <GuestRoutes />}
 			</AppLayout>
 		</BrowserRouter>
 	);

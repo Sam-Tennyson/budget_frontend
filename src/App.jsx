@@ -1,9 +1,10 @@
 // libs
-import { SnackbarProvider } from 'notistack'
 import { Provider } from 'react-redux'
+import { SnackbarProvider } from 'notistack'
+import { PersistGate } from 'redux-persist/integration/react'
 
 // store
-import { store } from './app/store'
+import { persistor, store } from './app/store'
 
 // components
 import RootRouter from './routes/RootRouter'
@@ -18,16 +19,18 @@ function App() {
 	return (
 		<>
 			<Provider store={store}>
-				<SnackbarProvider
-					anchorOrigin={{
-						vertical: "top",
-						horizontal: "center",
-					}}
-					maxSnack={3}
-				>
-					<SnackbarUtilConfig />
-					<RootRouter />
-				</SnackbarProvider>
+				<PersistGate persistor={persistor}>
+					<SnackbarProvider
+						anchorOrigin={{
+							vertical: "top",
+							horizontal: "center",
+						}}
+						maxSnack={3}
+					>
+						<SnackbarUtilConfig />
+						<RootRouter />
+					</SnackbarProvider>
+				</PersistGate>
 			</Provider>
 		</>
 	)

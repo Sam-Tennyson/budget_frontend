@@ -1,0 +1,10 @@
+@import "../../../assets/scss/base.scss";
+
+.border-radius-form {
+    border-radius: 20px;
+}
+
+.field-required-error {
+    font-size: $place-holder-font-size;
+    color: $red-color;
+}

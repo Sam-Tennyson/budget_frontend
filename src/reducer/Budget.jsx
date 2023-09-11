@@ -11,12 +11,7 @@ export const budgetSlice = createSlice({
 		setBudgetListData: (state, action) => {
 			state.budget_list = action.payload
 		},
-		decrement: (state) => {
-			state.value -= 1
-		},
-		incrementByAmount: (state, action) => {
-			state.value += action.payload
-		},
+
 	},
 })
 
