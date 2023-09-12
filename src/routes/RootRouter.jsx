@@ -44,7 +44,7 @@ const AuthenticatedRoutes = () => {
 };
 
 const RootRouter = () => {
-	const token = useSelector((state) => state.auth?.token) || CONSTANTS.EMPTY_STRING
+	const token = useSelector((state) => state.persistedReducer?.auth?.token) || CONSTANTS.EMPTY_STRING
 	const isAuthenticated = !!token;  
 	return (
 		<BrowserRouter basename={""}>

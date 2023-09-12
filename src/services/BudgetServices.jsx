@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { API_BASE_URL } from '../api/constants';
 import { UTILS } from '../shared/utils';
+import { CONSTANTS } from '../shared/constants';
 
 let base_url = API_BASE_URL
 
@@ -11,7 +12,7 @@ export const budgetApi = createApi({
         baseUrl: base_url, 
         prepareHeaders: (headers, { getState }) => {
             // Get the token from your Redux store or wherever it is stored
-            const token = UTILS.getAuthToken() // Adjust this based on your store structure
+            const token = localStorage.getItem("token") // Adjust this based on your store structure
 
             if (token) {
                 headers.set('Authorization', `Bearer ${token}`);
@@ -26,8 +27,8 @@ export const budgetApi = createApi({
     endpoints: (builder) => ({
 
         getBudgetData: builder.query({
-            query: () => ({
-                url: `/bu12dget/`,
+            query: (payload) => ({
+                url: `/budget${payload?.query_params || CONSTANTS.EMPTY_STRING}`,
                 method: `GET`,
             })
         }),

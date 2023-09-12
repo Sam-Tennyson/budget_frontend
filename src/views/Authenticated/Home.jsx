@@ -1,19 +1,18 @@
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { setAuthData } from '../../reducer/AuthSlice';
-import ConfirmationModal from '../../components/atoms/ConfirmationModal';
+import React, { useEffect } from 'react';
+import { useLazyGetBudgetDataQuery } from '../../services/BudgetServices';
 
 const Home = () => {
-	const [openModal, setOpenModal] = useState(true);
+	const [getBudgetData, {data}] = useLazyGetBudgetDataQuery();
+
+	useEffect(() => {
+		// You can access the data here when it's available
+		getBudgetData()
+	}, []);
+
+	  console.log(data);
 	return (
 		<>
-			<ConfirmationModal
-				openModal={openModal}
-				closeModal={() => setOpenModal(false)}
-				desc={"asdf"}
-				buttonText={"TT"}
-				handleAction={() => { }}
-			/>
+		
 			Home
 		</>
 	)

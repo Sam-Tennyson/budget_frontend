@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import * as Yup from "yup"
 import { Form, Formik } from 'formik'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
 // components
 import CommonImage from './components/CommonImage'
@@ -11,16 +12,15 @@ import TextField from '../../components/atoms/TextField'
 // constants
 import { CONSTANTS } from '../../shared/constants'
 import { ROUTE_CONSTANTS } from '../../shared/routes'
+import { IMAGES } from '../../shared/images'
+import Snackbar from '../../shared/Snackbar'
+
+// services
+import { useLoginMutation } from '../../services/AuthServices'
+import { setAuthData } from '../../reducer/AuthSlice'
 
 // styles
 import "./style.scss"
-import { IMAGES } from '../../shared/images'
-import ReactModal from '../../components/atoms/ReactModal'
-import CustomModalBody from "../../components/atoms/CustomModalBody"
-import { useLoginMutation } from '../../services/AuthServices'
-import { useDispatch } from 'react-redux'
-import { setAuthData } from '../../reducer/AuthSlice'
-import Snackbar from '../../shared/Snackbar'
 
 const validationSchema = Yup.object({
 	email: Yup.string()
@@ -55,16 +55,6 @@ const Login = () => {
 
 	return (
 		<>
-			{/* <ReactModal
-                size={"lg"}
-                isOpen={openModal}
-                handleToggle={()=>setOpenModal(false)}
-                title={CONSTANTS.LABELS.BUDGET}
-            >
-                <CustomModalBody>
-                    <p className='text-center mb-2'>asdfasdf</p>
-                </CustomModalBody>
-            </ReactModal> */}
 			<div className="container">
 				<div className="row my-4">
 					<div className="col-12 col-md-4">

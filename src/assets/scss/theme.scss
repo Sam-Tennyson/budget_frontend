@@ -195,7 +195,7 @@ textarea.form-control-lg {
 		position: absolute;
 		bottom: 0;
 		left: 0;
-		background: red;
+		background: $text-color;
 		content: '';
 		width: 100px;
 		height: 3px;
@@ -230,6 +230,18 @@ h2 {
 	font-size: 1.2rem;
 	width: 120px;
 }
+
+.budget-button-clear {
+	display: block;
+	border-radius: 70px;
+	padding: 0.5rem ;
+	background: $primary-color;
+	color: $secondary-color;
+	border: none;
+	font-size: 1.2rem;
+	width: 120px;
+}
+
 
 
 .set-primary-color {

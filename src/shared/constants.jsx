@@ -23,6 +23,12 @@ export const CONSTANTS = {
         CONFIRMATION:" Confirmation",
         BUDGET_CONTROLLER: "Budget Controller",
         LOGOUT: "Logout",
+        WRITE_BUDGET: "Write your budget here ...!",
+        ADD_BUDGET: "Add Budget",
+        ADD: "Add",
+        BUDGET_NAME: "Budget Name",
+        BUDGET_COST: "Budget Cost",
+        DATE: "Date"
     },
 
     PLACEHOLDER: {
@@ -31,6 +37,9 @@ export const CONSTANTS = {
         PASSWORD: "Enter your password",
         PHONE: "Enter your phone number",
         CONFIRM: "Enter your confirm password",
+        BUDGET_NAME: "Enter your budget name",
+        BUDGET_COST: "Enter your budget cost",
+        DATE: "Please select the data",
     },
 
     ERROR_MESSAGE: {

@@ -4,7 +4,7 @@ const initialState = {
 	budget_list: 0,
 }
 
-export const budgetSlice = createSlice({
+export const budgetApiSlice = createSlice({
 	name: 'budgetApi',
 	initialState,
 	reducers: {
@@ -16,6 +16,6 @@ export const budgetSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { setBudgetListData, decrement, incrementByAmount } = budgetSlice.actions
+export const { setBudgetListData, decrement, incrementByAmount } = budgetApiSlice.actions
 
-export default budgetSlice.reducer
+export default budgetApiSlice.reducer

@@ -4,7 +4,6 @@ import * as Yup from "yup"
 import { Form, Formik } from 'formik'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { setAuthData } from '../../reducer/AuthSlice'
 
 // components
 import TextField from '../../components/atoms/TextField'
@@ -13,21 +12,23 @@ import CommonImage from './components/CommonImage'
 // constants
 import { CONSTANTS } from '../../shared/constants'
 import { ROUTE_CONSTANTS } from '../../shared/routes'
+import { IMAGES } from '../../shared/images'
+import { REGEX } from '../../shared/utils'
+import Snackbar from '../../shared/Snackbar'
 
 // services
+import { setAuthData } from '../../reducer/AuthSlice'
 import { useRegisterMutation } from '../../services/AuthServices'
 
 // styles
 import "./style.scss"
-import Snackbar from '../../shared/Snackbar'
-import { IMAGES } from '../../shared/images'
 
 const validationSchema = Yup.object({
 	password: Yup.string().trim().required(CONSTANTS.ERROR_MESSAGE.FIELD_REQUIRED),
 	name: Yup.string().trim().required(CONSTANTS.ERROR_MESSAGE.FIELD_REQUIRED),
 	phone: Yup.string().trim()
-	  .required(CONSTANTS.ERROR_MESSAGE.FIELD_REQUIRED)
-	  .matches(/^\+?[1-9]\d{1,14}$/, "Invalid phone number"),
+		.required(CONSTANTS.ERROR_MESSAGE.FIELD_REQUIRED)
+		.matches(REGEX.IS_PHONE_NUMBER, "Invalid phone number"),
 	email: Yup.string()
 		.trim()
 		.required(CONSTANTS.ERROR_MESSAGE.FIELD_REQUIRED)
