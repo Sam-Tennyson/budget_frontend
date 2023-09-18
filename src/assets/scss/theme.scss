@@ -220,6 +220,12 @@ h2 {
 	text-transform: uppercase;
 }
 
+@media (max-width: 768px) {
+	h2 {
+		font-size: 1.2rem;
+	}
+}
+
 .budget-button {
 	display: block;
 	border-radius: 70px;

@@ -28,7 +28,9 @@ export const CONSTANTS = {
         ADD: "Add",
         BUDGET_NAME: "Budget Name",
         BUDGET_COST: "Budget Cost",
-        DATE: "Date"
+        TOTAL_BUDGET: "Total Budget",
+        DATE: "Date",
+        EDIT: "Edit"
     },
 
     PLACEHOLDER: {

@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { API_BASE_URL } from '../api/constants';
-import { UTILS } from '../shared/utils';
 import { CONSTANTS } from '../shared/constants';
+import { UTILS } from '../shared/utils';
 
 let base_url = API_BASE_URL
 
@@ -12,8 +12,8 @@ export const budgetApi = createApi({
         baseUrl: base_url, 
         prepareHeaders: (headers, { getState }) => {
             // Get the token from your Redux store or wherever it is stored
-            const token = localStorage.getItem("token") // Adjust this based on your store structure
-
+            const token = getState().persistedReducer?.auth?.token// Adjust this based on your store structure
+            
             if (token) {
                 headers.set('Authorization', `Bearer ${token}`);
             }
@@ -23,6 +23,10 @@ export const budgetApi = createApi({
             headers.set("x-api-key", "test")
             return headers;
         },
+        globalResponseHandler:(data) => {
+            debugger;
+            console.log(data);
+        },
     }),
     endpoints: (builder) => ({
 
@@ -30,7 +34,13 @@ export const budgetApi = createApi({
             query: (payload) => ({
                 url: `/budget${payload?.query_params || CONSTANTS.EMPTY_STRING}`,
                 method: `GET`,
-            })
+            }),
+            transformErrorResponse: (res) => {
+                if (res.status == 401) {
+                    UTILS.clearLocalStorage()
+                } 
+                return res
+            }
         }),
         
         getBudgetDataById: builder.query({
@@ -44,6 +54,14 @@ export const budgetApi = createApi({
             query: (payload) => ({
                 url: `/budget/${payload?.id}`,
                 method: `DELETE`,
+            })
+        }),
+
+        updateBudget: builder.mutation({
+            query: (payload) => ({
+                url: `/budget/${payload?.id}`,
+                method: `PUT`,
+                body: payload.body_data,
             })
         }),
 
@@ -65,4 +83,5 @@ export const {
     useGetBudgetDataByIdQuery,
     useDeleteBudgetMutation,
     useCreateBudgetMutation,
+    useUpdateBudgetMutation,
 } = budgetApi

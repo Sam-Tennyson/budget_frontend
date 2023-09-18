@@ -1,0 +1,15 @@
+@import "../../../assets/scss/base.scss";
+
+.budget-card {
+    .card {
+        // background: url("../../../assets/images/watermark.svg");
+        // background-repeat: no-repeat;
+        .icon-button {
+   
+            i {
+                font-size: 1.5rem;
+                cursor: pointer;
+            }
+        }
+    }
+}

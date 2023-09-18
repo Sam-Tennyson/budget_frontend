@@ -7,6 +7,7 @@ import "./style.scss";
 
 const TextField = (props) => {
 	const [field] = useField(props)
+	const {isFormarray=false,} = props;
 	return (
 		<>
 			<input
@@ -15,7 +16,7 @@ const TextField = (props) => {
 				{...props}
 				autoComplete="off"
 			/>
-			<ErrorMessage name={field.name} component={"div"} className='field-required-error' />
+			{!isFormarray ? <ErrorMessage name={field.name} component={"div"} className='field-required-error' />: null}
 		</>
 	)
 }

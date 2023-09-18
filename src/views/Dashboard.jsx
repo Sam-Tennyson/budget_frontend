@@ -55,7 +55,7 @@ const Dashboard = () => {
                 <div>
                     <CommonHeader />
                     <div className='d-flex justify-content-center align-items-center flex-column text-center dashboard-button'>
-                        <em><img src={IMAGES.iconSvg} alt="icon" /></em>
+                        <em><img src={IMAGES.budgetIcon} alt="icon" /></em>
                         <button className='my-2'
                             onClick={() => navigate(ROUTE_CONSTANTS.REGISTER)}
                             >{CONSTANTS.LABELS.REGISTER}</button>

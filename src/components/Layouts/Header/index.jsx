@@ -14,10 +14,11 @@ import { setAuthData } from '../../../reducer/AuthSlice'
 import "./style.scss"
 import ReactModal from '../../atoms/ReactModal'
 import CustomModalBody from '../../atoms/CustomModalBody'
-import { Form, Formik } from 'formik'
+import { ErrorMessage, Field, FieldArray, Form, Formik } from 'formik'
 import TextField from '../../atoms/TextField'
-import { useCreateBudgetMutation } from '../../../services/BudgetServices'
+import { useCreateBudgetMutation, useLazyGetBudgetDataQuery } from '../../../services/BudgetServices'
 import Snackbar from '../../../shared/Snackbar'
+import moment from 'moment'
 
 const TAB_DATA = [
     {
@@ -28,24 +29,28 @@ const TAB_DATA = [
     }
 ]
 
-const  initialValues = {
-    budget_name: CONSTANTS.EMPTY_STRING,
-    budget_cost: CONSTANTS.EMPTY_STRING,
+const initialValues = {
     date: CONSTANTS.EMPTY_STRING,
+    budget_list: [{ budget_name: "", budget_cost: "" }]
 }
 
 const validationSchema = Yup.object({
-	budget_name:  Yup.string().trim().required(CONSTANTS.ERROR_MESSAGE.FIELD_REQUIRED),
-    budget_cost: Yup.string().trim().required(CONSTANTS.ERROR_MESSAGE.FIELD_REQUIRED),
-    date: Yup.date()
-    .required('Date is required')
-    // .min(new Date(), 'Date must be in the future')
+    budget_list: Yup.array().of(
+        Yup.object().shape({
+            budget_name: Yup.string().required(CONSTANTS.ERROR_MESSAGE.FIELD_REQUIRED),
+            budget_cost: Yup.number().required(CONSTANTS.ERROR_MESSAGE.FIELD_REQUIRED).typeError("Cost must be number"),
+        })
+    ),
+    date: Yup.date().required('Date is required')
 });
+
+const initialValue = 0; // Initial value for the sum
 
 const Header = () => {
 
     const dispatch = useDispatch();
-    const [createBudget] =useCreateBudgetMutation()
+    const [createBudget] = useCreateBudgetMutation()
+    const [getBudgetData] = useLazyGetBudgetDataQuery();
 
     const [isOpen, setIsOpen] = useState(true)
     const [isMobile, setIsMobile] = useState(false)
@@ -58,6 +63,7 @@ const Header = () => {
         }
     }
 
+    // Hide & show humburger icon
     const handleWindowDimensions = () => {
         if (window.innerWidth <= RESPONSIVE.BREAKPOINT_NOT_MOBILE.MIN_WIDTH) {
             document.getElementById("hamburger-icon").style.display = "block"
@@ -83,21 +89,32 @@ const Header = () => {
         }
     }
 
+    // Add Budget
     const handleSubmit = async (values) => {
+        console.log(values);
         try {
-			const body_data = {
-				budget_item_name: values.budget_name,
-				budget_cost: values.budget_cost,
-                budget_date: values.date,
-			};
-			const payload = await createBudget({ body_data }).unwrap();
-			Snackbar.success(payload?.message);
+
+            let total_budget = values?.budget_list?.reduce((accumulator, currentValue) => {
+                return accumulator + Number(currentValue.budget_cost);
+              }, initialValue);
+              
+            const body_data = {
+                budget_list: values.budget_list,
+                total_budget: total_budget,
+                budget_date: moment(values.date).format("DD-MM-YYYY"),
+            };
+
+            console.log(body_data);
+
+            const payload = await createBudget({ body_data }).unwrap();
+            getBudgetData()
+            Snackbar.success(payload?.message);
             closeWriteModal()
-		} catch (error) {
+        } catch (error) {
             Snackbar.error(error?.data?.message || CONSTANTS.ERROR_MESSAGE.SOMETHING_WENT_WRONG);
             closeWriteModal()
-		}
-     }
+        }
+    }
 
     useEffect(() => {
         handleWindowDimensions()
@@ -116,54 +133,81 @@ const Header = () => {
                 title={"Budget" || CONSTANTS.LABELS.ADD_BUDGET}
             >
                 <CustomModalBody>
-                    {/* <div className="mx-auto col-md-10"> */}
-                        <Formik
-                            initialValues={initialValues}
-                            validationSchema={validationSchema}
-                            onSubmit={handleSubmit}
-                        >
-                            {({ values, setFieldValue }) => (
-                                <Form >
-                                    <div className="field-class position-relative col-md-12 mx-auto mb-3">
-                                        <label htmlFor="budget_name mb-4 ">{CONSTANTS.LABELS.BUDGET_NAME}</label>
-                                        <TextField
-                                            name={"budget_name"}
-                                            type={"text"}
-                                            placeholder={CONSTANTS.PLACEHOLDER.BUDGET_NAME}
-                                        />
-                                    </div>
-                                    <div className="field-class position-relative col-md-12 mx-auto mb-3">
-                                        <label htmlFor="budget_cost mb-4 ">{CONSTANTS.LABELS.BUDGET_COST}</label>
-                                        <TextField
-                                            name={"budget_cost"}
-                                            type={"text"}
-                                            placeholder={CONSTANTS.PLACEHOLDER.BUDGET_COST}
-                                        />
-                                    </div>
-                                    <div className="field-class position-relative col-md-12 mx-auto mb-3">
-                                        <label htmlFor="date mb-4 ">{CONSTANTS.LABELS.DATE}</label>
-                                        <TextField
-                                            name={"date"}
-                                            type={"date"}
-                                            value={values.date}
-                                            onChange={(e) => setFieldValue("date",e.target.value)}
-                                            placeholder={CONSTANTS.PLACEHOLDER.DATE}
-                                        />
-                                    </div>
-                                    <button
-                                        type='submit'
-                                        className='budget-button col-md-6 mx-auto mb-2'
-                                    >{CONSTANTS.LABELS.ADD}</button>
-                                </Form>
-                            )}
-                        </Formik>
+                    <Formik
+                        initialValues={initialValues}
+                        validationSchema={validationSchema}
+                        onSubmit={handleSubmit}
+                    >
+                        {({ values, setFieldValue, errors }) => (
+                            <Form >
+                                <div className="field-class position-relative col-md-12 mx-auto mb-3">
+                                    <label htmlFor="date mb-4 ">{CONSTANTS.LABELS.DATE}</label>
+                                    <TextField
+                                        name={"date"}
+                                        type={"date"}
+                                        value={values.date}
+                                        onChange={(e) => setFieldValue("date", e.target.value)}
+                                        min={new Date().toISOString().split('T')[0]}
+                                        placeholder={CONSTANTS.PLACEHOLDER.DATE}
+                                    />
+                                </div>                              
 
-                    {/* </div> */}
+                                <FieldArray
+                                    name="budget_list"
+                                    render={({ insert, remove, push }) => (
+                                        <>
+                                            {values.budget_list &&
+                                                values.budget_list.length > 0 &&
+                                                values.budget_list.map((budget_list, index) => (
+                                                    <>
+
+                                                        <div className='row item-array  position-relative p-0  rounded' key={index}>
+
+                                                            <div className="col-6 mb-2">
+
+                                                                <TextField 
+                                                                    isFormarray={true}
+                                                                    name={`budget_list.${index}.budget_name`}
+                                                                    type={"text"}
+                                                                    placeholder={CONSTANTS.PLACEHOLDER.BUDGET_NAME}
+                                                                />
+                                                            </div>
+                                                            <div className="col-6 mb-2">
+                                                                <TextField
+                                                                    isFormarray={true}
+                                                                    name={`budget_list.${index}.budget_cost`}
+                                                                    type={"text"}
+                                                                    placeholder={CONSTANTS.PLACEHOLDER.BUDGET_COST}
+                                                                />
+                                                            </div>
+                                                            {index != "0" ? (
+                                                                <i className='bx bx-x'
+                                                                    onClick={() => remove(index)}
+                                                                ></i>) : null}
+                                                        </div>
+                                                        <div className='field-required-error'>{errors?.budget_list?.[index]?.budget_name || errors?.budget_list?.[index]?.budget_cost}</div>
+                                                    </>
+                                                ))}
+
+                                            <i className='bx bx-plus border rounded p-2'
+                                                onClick={() => push({ budget_name: "", budget_cost: "" })}
+                                            ></i>
+                                        </>
+                                    )}
+                                />
+
+                                <button
+                                    type='submit'
+                                    className='budget-button col-md-6 mx-auto mb-2'
+                                >{CONSTANTS.LABELS.ADD}</button>
+                            </Form>
+                        )}
+                    </Formik>
                 </CustomModalBody>
             </ReactModal>
 
-            <header className='px-4 header d-flex justify-content-between align-items-center flex-md-row flex-column'>
-                <em><img src={IMAGES.iconSvg} alt="icon" /></em>
+            <header className='px-4 header d-flex justify-content-between align-items-center'>
+                <em><img src={IMAGES.budgetIcon} alt="icon" /></em>
                 <h3 className='heading_title'> {CONSTANTS.LABELS.BUDGET_CONTROLLER} </h3>
                 {isOpen ? (
                     <i className='bx bx-x' id="hamburger-icon"

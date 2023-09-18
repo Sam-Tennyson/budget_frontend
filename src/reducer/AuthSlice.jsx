@@ -10,7 +10,7 @@ export const authApiSlice = createSlice({
 	initialState,
 	reducers: {
 		setAuthData: (state, action) => {
-			state.auth_data = action.payload?.user_data
+			state.auth_data = action.payload?.data
             state.token = action.payload?.token
 		},
 	},

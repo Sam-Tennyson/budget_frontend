@@ -5,6 +5,7 @@ export const UTILS = {
     removeAuthToken: (token) => {
         localStorage.removeItem('token', token);
     },
+    clearLocalStorage: () => localStorage.clear(),
     getAuthToken: () => localStorage.getItem("token"),
 }
 
