@@ -2,6 +2,7 @@ import React from 'react'
 import ReactModal from '../ReactModal'
 import CustomModalBody from '../CustomModalBody'
 import { CONSTANTS } from '../../../shared/constants'
+import "./style.scss"
 
 const ConfirmationModal = ({
 	openModal, closeModal, desc, buttonText,
@@ -9,11 +10,11 @@ const ConfirmationModal = ({
 }) => {
 
 	const footerChild = () => (
-		<div className="d-flex justify-content-center align-items-center mt-4">
-			<button className='btn btn-secondary mx-2'
+		<div className="d-flex justify-content-center align-items-center my-4">
+			<button className='btn-budget-secondary mx-2'
 				onClick={closeModal}
 			>{CONSTANTS.LABELS.CANCEL}</button>
-			<button className='btn btn-danger mx-2'
+			<button className='btn-budget-danger mx-2'
 				onClick={handleAction}
 			>{buttonText}</button>
 		</div>

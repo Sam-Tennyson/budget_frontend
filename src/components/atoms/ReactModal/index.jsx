@@ -27,7 +27,7 @@ function ReactModal({
 			>
 				{title ? (
 					<Modal.Header  
-						className={`d-flex justify-content-center align-items-center`}
+						className={`d-flex justify-content-center align-items-center my-header-class`}
 					>
 						{showCloseButton ? (
 							<button onClick={() => handleToggle()} className="close_btn">

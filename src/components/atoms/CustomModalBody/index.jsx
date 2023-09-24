@@ -12,7 +12,7 @@ const CustomModalBody = ({
             {children}
         </Modal.Body>
         {hasFooter ? (
-            <Modal.Footer className={`d-flex justify-content-center align-items-center`}>
+            <Modal.Footer className={`d-flex justify-content-center align-items-center p-0`}>
                 {footerChild()}
             </Modal.Footer>
         ) : null}

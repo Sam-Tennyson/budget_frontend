@@ -4,6 +4,14 @@
     .card {
         // background: url("../../../assets/images/watermark.svg");
         // background-repeat: no-repeat;
+        // background: $primary-color;
+        // color: $secondary-color;
+        // background: $secondary-color;
+        background: #7b3f3c;
+        color: $primary-color;
+        h3 {
+            font-weight: 600;
+        }
         .icon-button {
    
             i {
@@ -13,6 +21,27 @@
         }
         .total-budget {
             font-size: 1.2rem;
+        }
+        .table-style-class {
+            border-radius: 8px;
+            // border: none;
+            // border: 1px solid $primary-color;
+            border-collapse: separate;
+
+            .thead-my tr {
+                border-bottom: 1px solid $primary-color;
+                th {
+                    border-radius: 8px;
+                    font-size: 1.2rem;
+                }
+            }
+            .tbody-my tr {
+                border-bottom: 1px solid $primary-color;
+                td {
+                    font-size: 1rem;
+                    border-radius: 8px;
+                }
+            }
         }
     }
 }

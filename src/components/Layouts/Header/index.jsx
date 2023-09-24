@@ -256,6 +256,19 @@ const Header = () => {
                     ))}
                 </nav>
             </header>
+            {/* <footer className='footer'>
+                <nav className={`navbar p-0 my-nav } `}>
+                        {TAB_DATA.map((item) => (
+                            <a key={item?.id}
+                                onClick={() => handleTab(item)}
+                            >
+                                <i className="d-flex justify-content-center align-items-center">
+                                    <span> {item?.icon} </span> 
+                                </i>
+                            </a>
+                        ))}
+                </nav>
+            </footer> */}
         </>
     )
 }
