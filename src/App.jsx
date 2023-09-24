@@ -10,7 +10,7 @@ import { persistor, store } from './app/store'
 import RootRouter from './routes/RootRouter'
 
 // utils
-import { SnackbarUtilConfig } from './shared/Snackbar'
+import { SnackbarUtilConfig } from './shared/snackbar'
 
 // styles
 import './App.scss'

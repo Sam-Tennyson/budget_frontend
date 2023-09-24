@@ -6,6 +6,8 @@ import {   Chart as ChartJS, PointElement, LineElement, CategoryScale, LinearSca
 ChartJS.register( PointElement, LineElement, CategoryScale, LinearScale, Title, Tooltip, Legend)
 // ChartJS.register(ChartDataLabels, PointElement, LineElement, CategoryScale, LinearScale, Title, Tooltip, Legend)
 
+import "./style.scss"
+
 const ReactLineChart = (props) => {
 	const { labels, graph_data } = props
 	const data = {
@@ -14,8 +16,9 @@ const ReactLineChart = (props) => {
 			{
 				label: 'My Chart',
 				data: [...graph_data],
-				borderColor: 'rgba(75,192,192,1)',
-				borderWidth: 2,
+				borderColor: '#4e0c08',
+				// backgroundColor: "#4e0c08",
+				borderWidth: 1,
 			},
 		],
 	};
@@ -35,7 +38,7 @@ const ReactLineChart = (props) => {
 			},
 			title: {
 				display: true,
-				text: 'Chart.js Line Chart',
+				text: 'Budget Record',
 			},
 		},
 		maintainAspectRatio: false, // Set this to false to make the chart responsive
@@ -55,7 +58,7 @@ const ReactLineChart = (props) => {
 				// Y-axis options
 				title: {
 					display: true,
-					text: 'Y-Axis Label', // Y-axis label text
+					text: 'Total Budget ( ₹ )', // Y-axis label text
 				},
 				// grid: {
 				// 	display: false, // Hide y-axis grid lines
@@ -75,6 +78,7 @@ const ReactLineChart = (props) => {
 			},
 			line: {
 				tension: 0.4, // Line tension (0 for straight lines, 1 for very smooth curves)
+				backgroundColor: '#f2f2f2'
 			},
 		},
 		tooltips: {
@@ -84,9 +88,9 @@ const ReactLineChart = (props) => {
 	};
 	return (
 		<>
-
-			{/* Adjust the width and max-width as needed */}
-			<Line data={data} options={options} />
+			<div className="my-chart">
+				<Line data={data} options={options} />
+			</div>
 		</>
 	)
 }

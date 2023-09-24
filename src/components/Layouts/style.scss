@@ -1,7 +1,10 @@
 .private-screen {
     margin-top: 100px;
-    // background: url("../../assets/images/watermark.svg");
-    // height: 100vh;
-    // width: 100%;
-    // background-repeat: no-repeat;
+    text-align: center;
+    em {
+        img {
+            width: 100%;
+            height: 60vh;
+        }
+    }
 }

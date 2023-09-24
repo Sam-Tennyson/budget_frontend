@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export const UTILS = {
     setAuthToken: (token) => {
         localStorage.setItem('token', token);
@@ -7,6 +9,7 @@ export const UTILS = {
     },
     clearLocalStorage: () => localStorage.clear(),
     getAuthToken: () => localStorage.getItem("token"),
+    getDateWithoutTimeZone: (date) => moment(date).utcOffset(0, true).format(),
 }
 
 export const REGEX = {

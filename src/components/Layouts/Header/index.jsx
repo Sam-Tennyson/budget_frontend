@@ -1,5 +1,5 @@
 // libs
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import * as Yup from "yup"
 
@@ -16,16 +16,28 @@ import ReactModal from '../../atoms/ReactModal'
 import CustomModalBody from '../../atoms/CustomModalBody'
 import { ErrorMessage, Field, FieldArray, Form, Formik } from 'formik'
 import TextField from '../../atoms/TextField'
-import { useCreateBudgetMutation, useLazyGetBudgetDataQuery } from '../../../services/BudgetServices'
-import Snackbar from '../../../shared/Snackbar'
+import { useCreateBudgetMutation, useLazyGetBudgetDataQuery, useLazyGetBudgetGraphDataQuery } from '../../../services/BudgetServices'
+import Snackbar from '../../../shared/snackbar'
 import moment from 'moment'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { ROUTE_CONSTANTS } from '../../../shared/routes'
 
 const TAB_DATA = [
     {
-        label: CONSTANTS.LABELS.WRITE_BUDGET, id: CONSTANTS.LABELS.WRITE_BUDGET, icon: <i className='bx bx-notepad'></i>
+        label: CONSTANTS.LABELS.WRITE_BUDGET, 
+        id: CONSTANTS.LABELS.WRITE_BUDGET, 
+        icon: <i className='bx bx-notepad'></i>,
     },
     {
-        label: CONSTANTS.LABELS.LOGOUT, id: CONSTANTS.LABELS.LOGOUT, icon: <i className='bx bx-log-out'></i>
+        label: CONSTANTS.LABELS.MY_BUDGET_HISTORY, 
+        id: CONSTANTS.LABELS.MY_BUDGET_HISTORY, 
+        icon: <i className='bx bx-notepad'></i>,
+        path: ROUTE_CONSTANTS.BUDGET_HISTORY,
+    },
+    {
+        label: CONSTANTS.LABELS.LOGOUT,
+        id: CONSTANTS.LABELS.LOGOUT, 
+        icon: <i className='bx bx-log-out'></i>
     }
 ]
 
@@ -49,8 +61,15 @@ const initialValue = 0; // Initial value for the sum
 const Header = () => {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const location = useLocation();
+    
+	const startDateRef = useRef(moment("09-20-2023").utcOffset(0, true).format());
+	const endDateRef = useRef(moment("09-25-2023").utcOffset(0, true).format());
+
     const [createBudget] = useCreateBudgetMutation()
     const [getBudgetData] = useLazyGetBudgetDataQuery();
+    const [getBudgetGraphData] = useLazyGetBudgetGraphDataQuery()
 
     const [isOpen, setIsOpen] = useState(true)
     const [isMobile, setIsMobile] = useState(false)
@@ -87,6 +106,7 @@ const Header = () => {
         if (data?.id === CONSTANTS.LABELS.WRITE_BUDGET) {
             setIsWriteModal(true)
         }
+        navigate({pathname: data?.path})
     }
 
     // Add Budget
@@ -101,13 +121,17 @@ const Header = () => {
             const body_data = {
                 budget_list: values.budget_list,
                 total_budget: total_budget,
-                budget_date: moment(values.date).format("DD-MM-YYYY"),
+                budget_date: moment(values.date).utcOffset(0, true).format(),
             };
 
             console.log(body_data);
-
             const payload = await createBudget({ body_data }).unwrap();
-            getBudgetData()
+            if (location.pathname === ROUTE_CONSTANTS.HOME) {
+                getBudgetGraphData({ query_params: `?startDate=${startDateRef.current}&endDate=${endDateRef.current}&year=09` })
+            }
+            if (location.pathname === ROUTE_CONSTANTS.BUDGET_HISTORY) {
+                getBudgetData()
+            }
             Snackbar.success(payload?.message);
             closeWriteModal()
         } catch (error) {
@@ -207,7 +231,9 @@ const Header = () => {
             </ReactModal>
 
             <header className='px-4 header d-flex justify-content-between align-items-center'>
-                <em><img src={IMAGES.budgetIcon} alt="icon" /></em>
+                <em
+                    onClick={() => navigate({pathname: ROUTE_CONSTANTS.HOME})}
+                ><img src={IMAGES.budgetIcon} alt="icon" /></em>
                 <h3 className='heading_title'> {CONSTANTS.LABELS.BUDGET_CONTROLLER} </h3>
                 {isOpen ? (
                     <i className='bx bx-x' id="hamburger-icon"

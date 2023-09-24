@@ -8,6 +8,7 @@ export const RESPONSIVE = {
 export const CONSTANTS = {
     
     LABELS: {
+        MY_BUDGET_HISTORY: "My Budget History",
         REGISTER: "Register",
         LOGIN: "Login",
         BUDGET: "Budget",

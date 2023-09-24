@@ -7,7 +7,7 @@ import { PublicRoute } from './PublicRoute'
 
 // libs
 import { BrowserRouter, Navigate, useRoutes } from "react-router-dom";
-import React from "react";
+import React, { Suspense } from "react";
 
 // constants
 import { AuthRoutes } from "./AuthRoutes";
@@ -19,6 +19,14 @@ import { CONSTANTS } from "../shared/constants";
 const DEFAULT_AUTHENTICATED_ROUTE = ROUTE_CONSTANTS.HOME;
 const DEFAULT_GUEST_ROUTE = ROUTE_CONSTANTS.DASHBOARD;
 
+const Fallback = () => {
+	return (
+		<>
+			<div className='full-page'>loading ...</div>
+		</>
+	);
+};
+
 const GuestRoutes = () => {
 	const routes = AuthRoutes.concat(PublicRoute);
 	let defaultGuestRoute = {
@@ -28,7 +36,11 @@ const GuestRoutes = () => {
 	};
 	routes.push(defaultGuestRoute);
 	const routing = useRoutes(routes);
-	return <PublicLayout>{routing}</PublicLayout>;
+	return (
+		<Suspense fallback={<Fallback />}>
+			<PublicLayout>{routing}</PublicLayout>
+		</Suspense>
+	);
 };
 
 const AuthenticatedRoutes = () => {
@@ -40,7 +52,11 @@ const AuthenticatedRoutes = () => {
 	};
 	routes.push(defaultRoute);
 	const routing = useRoutes(routes);
-	return <PrivateLayout>{routing}</PrivateLayout>;
+	return (
+		<Suspense fallback={<Fallback />}>
+			<PrivateLayout>{routing}</PrivateLayout>
+		</Suspense>
+	)
 };
 
 const RootRouter = () => {

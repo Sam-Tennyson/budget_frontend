@@ -13,7 +13,7 @@ import TextField from '../../components/atoms/TextField'
 import { CONSTANTS } from '../../shared/constants'
 import { ROUTE_CONSTANTS } from '../../shared/routes'
 import { IMAGES } from '../../shared/images'
-import Snackbar from '../../shared/Snackbar'
+import Snackbar from '../../shared/snackbar'
 
 // services
 import { useLoginMutation } from '../../services/AuthServices'

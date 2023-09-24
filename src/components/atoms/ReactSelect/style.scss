@@ -1,0 +1,118 @@
+@import "../../../assets/scss/base.scss";
+
+.react-select-container {
+    font-family: var(--bs-body-font-family);
+    min-width: 250px;
+    .react-select__menu {
+        margin-top: 0;
+        &-list {
+        border-radius: 0.375rem;
+        padding: 0.25rem 0.5rem;
+        .react-select__option {
+            font-size: 16 - 1;
+            cursor: $pointer;
+            color: $base-color;
+            margin-bottom: 0.25rem;
+            border-radius: 0.375rem;
+            padding: 0.5rem 1rem;
+           
+            &:hover {
+                background-color: rgba(115, 103, 240, 0.08);
+                color: $primary-color;
+            }
+            
+            &--is-focused{
+                background-color: rgba(115, 103, 240, 0.08);
+                color: $primary-color;
+            }
+            &--is-selected {
+                // background-color: rgba(115, 103, 240, 0.08);
+                 background-color:$primary-color;
+                 color: $white-color;
+             }
+        }
+    }
+}
+    &.invalid-error {
+        .react-select {
+            &__control {
+                border-color: rgb(224, 131, 64);
+            }
+        }
+    }
+    .react-select {
+        cursor: $pointer;
+        &__placeholder {
+            font-size: $place-holder-font-size;
+        }
+        &__single-value {
+            color: $base-color;
+        }
+        &__option {
+            color : $white-color;
+        }
+        &__control {
+            min-height: 38px;
+            overflow: $auto;
+            font-size: 0.9375rem;
+            color: $base-color;
+            cursor: $pointer;
+            text-align: $left;
+            appearance: $none;
+            -webkit-appearance: $none;
+            -moz-appearance: $none;
+            padding-right: 35px;
+            // background: url('../../../Assets/Images/icons/down-arrow.svg') $no-repeat $white-color;
+            background-size: 13px;
+            background-position: calc(100% - 18px);
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            &--is-focused {
+                box-shadow: 0 0.125rem 0.25rem rgba(165, 163, 174, 0.3);
+                border-color: $primary-color !important;
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+            }    
+        }
+
+        &__value-container {
+            padding: 2px 16px 2px 4px;
+            .react-select__multi-value {
+                font-size: 0.8125rem;
+                border-radius: 0.25rem;
+                padding: 0.395rem 0.625rem;
+                cursor: default;
+                line-height: 0.875;
+                float: left;
+                font-weight: 600;
+                color: $primary-color;
+                background-color: rgba(115, 103, 240, 0.16);
+                align-items: center;
+
+                &__label {
+                    color: $primary-color;
+                    padding: 0;
+                    font-size: 0.8125rem;
+                    line-height: 1;
+                }
+
+                &__remove {
+                    color: $primary-color;
+                    padding: 0;
+                    display: inline-block;
+                    cursor: pointer;
+                    opacity: 0.5;
+                    font-size: 1.1875rem;
+
+                    &:hover {
+                        background: transparent;
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+
+        &__indicators {
+            display: $none;
+        }
+    }
+}

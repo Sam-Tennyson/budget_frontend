@@ -14,7 +14,7 @@ import { CONSTANTS } from '../../shared/constants'
 import { ROUTE_CONSTANTS } from '../../shared/routes'
 import { IMAGES } from '../../shared/images'
 import { REGEX } from '../../shared/utils'
-import Snackbar from '../../shared/Snackbar'
+import Snackbar from '../../shared/snackbar'
 
 // services
 import { setAuthData } from '../../reducer/AuthSlice'

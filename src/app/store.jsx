@@ -31,7 +31,7 @@ const persistConfig = {
 const RootReducer = combineReducers({
 	// Include other reducers from your application
 	auth: authReducer,
-	// budget: budgetReducer,
+	budget: budgetReducer,
 });
 
 // Create a persisted reducer using Redux Persist

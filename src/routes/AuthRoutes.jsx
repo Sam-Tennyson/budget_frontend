@@ -1,6 +1,8 @@
-import { ROUTE_CONSTANTS } from "../Shared/Routes";
-import Login from "../views/Authentication/Login";
-import Register from "../views/Authentication/Register";
+import { lazy } from "react";
+import { ROUTE_CONSTANTS } from "../shared/routes";
+
+const Login = lazy(() => import("../views/Authentication/Login"))
+const Register = lazy(() => import("../views/Authentication/Register"))
 
 export const AuthRoutes = [
     {

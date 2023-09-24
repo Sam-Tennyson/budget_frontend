@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { API_BASE_URL } from '../api/constants'
-import Snackbar from '../shared/Snackbar';
+import Snackbar from '../shared/snackbar';
 import { CONSTANTS } from '../shared/constants';
 
 let base_url = API_BASE_URL

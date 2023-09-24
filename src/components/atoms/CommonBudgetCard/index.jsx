@@ -1,6 +1,7 @@
 import React from 'react'
 import "./style.scss"
 import { OverlayTrigger, Table, Tooltip } from 'react-bootstrap';
+import moment from 'moment';
 
 const CommonBudgetCard = (props) => {
     const {
@@ -17,7 +18,7 @@ const CommonBudgetCard = (props) => {
             >
                 <div className="card position-relative p-4">
                     <div className=" d-flex justify-content-between align-items-center mb-2">
-                        <h3 className='mb-0'>{data?.budget_date}</h3>
+                        <h3 className='mb-0'>{moment(data?.budget_date).format("LL")}</h3>
                         <div className="icon-button mb-0">
 
                             <i className='bx bx-pencil me-3'
@@ -50,8 +51,9 @@ const CommonBudgetCard = (props) => {
                             })}
                         </tbody>
                     </Table>
-                    <p className='text-end'><b>&#x20b9; &nbsp;{data?.total_budget}</b> (Total Budget)</p>
-
+                    <p className='text-end total-budget'>
+                        <b>&#x20b9; &nbsp;{data?.total_budget} ( Total Budget )</b> 
+                    </p>
                     <div>{data?.budget_cost}</div>
                 </div>
             </div>

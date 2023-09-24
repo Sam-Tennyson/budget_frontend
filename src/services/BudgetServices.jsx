@@ -36,6 +36,7 @@ export const budgetApi = createApi({
                 method: `GET`,
             }),
             transformErrorResponse: (res) => {
+                debugger;
                 if (res.status == 401) {
                     UTILS.clearLocalStorage()
                 } 
@@ -73,6 +74,12 @@ export const budgetApi = createApi({
             })
         }),
 
+        getBudgetGraphData: builder.query({
+            query: (payload) => ({
+                url: `/budget-graph${payload?.query_params || CONSTANTS.EMPTY_STRING}`,
+                method: `GET`,
+            })
+        }),
 
     }),
 })
@@ -84,4 +91,6 @@ export const {
     useDeleteBudgetMutation,
     useCreateBudgetMutation,
     useUpdateBudgetMutation,
+    useGetBudgetGraphDataQuery,
+    useLazyGetBudgetGraphDataQuery,
 } = budgetApi
