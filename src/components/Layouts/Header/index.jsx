@@ -21,6 +21,7 @@ import Snackbar from '../../../shared/snackbar'
 import moment from 'moment'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { ROUTE_CONSTANTS } from '../../../shared/routes'
+import { UTILS } from '../../../shared/utils'
 
 const TAB_DATA = [
     {
@@ -64,8 +65,11 @@ const Header = () => {
     const navigate = useNavigate();
     const location = useLocation();
     
-	const startDateRef = useRef(moment("09-20-2023").utcOffset(0, true).format());
-	const endDateRef = useRef(moment("09-25-2023").utcOffset(0, true).format());
+	let {start_date, end_date} = UTILS.getMonthStartAndEndDate(new Date().getMonth()+1, new Date().getFullYear())
+		
+	const endDateRef = useRef(UTILS.getDateWithoutTimeZone(end_date));
+	const startDateRef = useRef(UTILS.getDateWithoutTimeZone(start_date));
+
 
     const [createBudget] = useCreateBudgetMutation()
     const [getBudgetData] = useLazyGetBudgetDataQuery();
@@ -127,7 +131,7 @@ const Header = () => {
             console.log(body_data);
             const payload = await createBudget({ body_data }).unwrap();
             if (location.pathname === ROUTE_CONSTANTS.HOME) {
-                getBudgetGraphData({ query_params: `?startDate=${startDateRef.current}&endDate=${endDateRef.current}&year=09` })
+                getBudgetGraphData({ query_params: `?startDate=${startDateRef.current}&endDate=${endDateRef.current}` })
             }
             if (location.pathname === ROUTE_CONSTANTS.BUDGET_HISTORY) {
                 getBudgetData()

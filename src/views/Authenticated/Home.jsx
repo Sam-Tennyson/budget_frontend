@@ -22,14 +22,13 @@ const Home = () => {
 	const dispatch = useDispatch();
 	const currentYearRef = useRef(new Date().getFullYear());
 
-	const endDateRef = useRef(UTILS.getDateWithoutTimeZone(UTILS.getDateWithoutTimeZone("09-30-2023")));
-	const startDateRef = useRef(UTILS.getDateWithoutTimeZone(UTILS.getDateWithoutTimeZone("09-01-2023")));
+	let {start_date, end_date} = UTILS.getMonthStartAndEndDate(new Date().getMonth()+1, new Date().getFullYear())
+		
+	const endDateRef = useRef(UTILS.getDateWithoutTimeZone(end_date));
+	const startDateRef = useRef(UTILS.getDateWithoutTimeZone(start_date));
 
-	const {data} = useGetBudgetGraphDataQuery({
-		query_params: `?startDate=${startDateRef.current}&endDate=${endDateRef.current}`
-		// query_params: `?month=09&year=2023`
-	})
-
+	const {data} = useGetBudgetGraphDataQuery({query_params: `?startDate=${startDateRef.current}&endDate=${endDateRef.current}`})
+	
 	const [getBudgetGraphData, {data: newData}] = useLazyGetBudgetGraphDataQuery()
 
 	const [monthsData, setMonthsData] = useState(monthArray)
@@ -41,6 +40,7 @@ const Home = () => {
 	useEffect(() => {
 		if (data) {
 			dispatch(setBudgetGraph(data?.data))
+			setSelectedMonth(monthArray.find(item => item?.value === new Date().getMonth()+1))
 		}
 	}, [data])
 	
