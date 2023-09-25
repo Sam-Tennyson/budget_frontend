@@ -22,7 +22,7 @@ function App() {
 				<PersistGate persistor={persistor}>
 					<SnackbarProvider
 						anchorOrigin={{
-							vertical: "top",
+							vertical: "bottom",
 							horizontal: "center",
 						}}
 						maxSnack={3}
