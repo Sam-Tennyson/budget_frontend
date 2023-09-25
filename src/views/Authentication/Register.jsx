@@ -62,6 +62,7 @@ const Register = () => {
 			const payload = await register({ body_data }).unwrap();
 			formikRef.current.resetForm()
 			dispatch(setAuthData(payload))
+			debugger;
 			Snackbar.success(payload?.message);
 		} catch (error) {
 			Snackbar.error(error?.data?.message || CONSTANTS.ERROR_MESSAGE.SOMETHING_WENT_WRONG);

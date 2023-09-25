@@ -30,7 +30,7 @@ export const CONSTANTS = {
         BUDGET_NAME: "Budget Name",
         BUDGET_COST: "Budget Cost",
         TOTAL_BUDGET: "Total Budget",
-        DATE: "Date",
+        DATE: "Please select a date",
         EDIT: "Edit"
     },
 
@@ -40,9 +40,9 @@ export const CONSTANTS = {
         PASSWORD: "Enter your password",
         PHONE: "Enter your phone number",
         CONFIRM: "Enter your confirm password",
-        BUDGET_NAME: "Enter your budget name",
-        BUDGET_COST: "Enter your budget cost",
-        DATE: "Please select the data",
+        BUDGET_NAME: "Budget name",
+        BUDGET_COST: "Budget cost",
+        DATE: "Select data",
     },
 
     ERROR_MESSAGE: {
