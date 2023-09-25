@@ -135,7 +135,11 @@ const Header = () => {
             Snackbar.success(payload?.message);
             closeWriteModal()
         } catch (error) {
-            Snackbar.error(error?.data?.message || CONSTANTS.ERROR_MESSAGE.SOMETHING_WENT_WRONG);
+            let msg = null;
+            if (error?.data.message === "Please provide new date") {
+                msg = "Please provide new date or you can update from budget history section"
+            }
+            Snackbar.error((msg || error?.data?.message) || CONSTANTS.ERROR_MESSAGE.SOMETHING_WENT_WRONG);
             closeWriteModal()
         }
     }
