@@ -22,6 +22,7 @@ import moment from 'moment'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { ROUTE_CONSTANTS } from '../../../shared/routes'
 import { UTILS } from '../../../shared/utils'
+import ShowLoader from '../../atoms/ShowLoader'
 
 const TAB_DATA = [
     {
@@ -71,8 +72,8 @@ const Header = () => {
 	const startDateRef = useRef(UTILS.getDateWithoutTimeZone(start_date));
 
 
-    const [createBudget] = useCreateBudgetMutation()
-    const [getBudgetData] = useLazyGetBudgetDataQuery();
+    const [createBudget, {isLoading}] = useCreateBudgetMutation()
+    const [getBudgetData, {isLoading: isGraphDataLoading}] = useLazyGetBudgetDataQuery();
     const [getBudgetGraphData] = useLazyGetBudgetGraphDataQuery()
 
     const [isOpen, setIsOpen] = useState(true)
@@ -116,6 +117,7 @@ const Header = () => {
     // Add Budget
     const handleSubmit = async (values) => {
         console.log(values);
+        debugger;
         try {
 
             let total_budget = values?.budget_list?.reduce((accumulator, currentValue) => {
@@ -129,6 +131,7 @@ const Header = () => {
             };
 
             console.log(body_data);
+            closeWriteModal()
             const payload = await createBudget({ body_data }).unwrap();
             if (location.pathname === ROUTE_CONSTANTS.HOME) {
                 getBudgetGraphData({ query_params: `?startDate=${startDateRef.current}&endDate=${endDateRef.current}` })
@@ -137,7 +140,6 @@ const Header = () => {
                 getBudgetData()
             }
             Snackbar.success(payload?.message);
-            closeWriteModal()
         } catch (error) {
             let msg = null;
             if (error?.data.message === "Please provide new date") {
@@ -231,7 +233,8 @@ const Header = () => {
                                 <button
                                     type='submit'
                                     className='budget-button col-md-6 mx-auto mb-2'
-                                >{CONSTANTS.LABELS.ADD}</button>
+                                    disabled={isLoading}
+                                >{isLoading? <ShowLoader />: CONSTANTS.LABELS.ADD}</button>
                             </Form>
                         )}
                     </Formik>

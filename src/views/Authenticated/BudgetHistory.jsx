@@ -23,6 +23,7 @@ import { useDeleteBudgetMutation, useGetBudgetDataQuery, useLazyGetBudgetDataQue
 // reducer
 import { setBudgetListData } from '../../reducer/Budget';
 import { UTILS } from '../../shared/utils';
+import ShowLoader from '../../components/atoms/ShowLoader';
 
 const validationSchema = Yup.object({
 	budget_list: Yup.array().of(
@@ -40,7 +41,7 @@ const BudgetHistory = () => {
 	const dispatch = useDispatch();
 	const [getBudgetData] = useLazyGetBudgetDataQuery()
 	const [updateBudget, { isLoading: isLoadingEdit }] = useUpdateBudgetMutation()
-	const [deleteBudget] = useDeleteBudgetMutation()
+	const [deleteBudget, { isLoading: isLoadingDelete }] = useDeleteBudgetMutation()
 
 	const { data } = useGetBudgetDataQuery()
 
@@ -83,10 +84,11 @@ const BudgetHistory = () => {
 			const body_data = {
 				budget_list: values.budget_list,
 				total_budget: total_budget,
-				budget_date:  UTILS.getDateWithoutTimeZone(values.date),
+				budget_date: UTILS.getDateWithoutTimeZone(values.date),
 			};
 
 			console.log(body_data);
+			if (!currentData?._id) return;
 			const payload = await updateBudget({ body_data, id: currentData?._id }).unwrap();
 			getBudgetData()
 			Snackbar.success(payload?.message);
@@ -101,6 +103,7 @@ const BudgetHistory = () => {
 	const handleDeleteSubmit = async (values) => {
 		console.log(values);
 		try {
+			if (!currentData?._id) return;
 			const payload = await deleteBudget({ id: currentData?._id }).unwrap();
 			getBudgetData()
 			Snackbar.success(payload?.message);
@@ -126,7 +129,7 @@ const BudgetHistory = () => {
 					required_months.push(months)
 				}
 			});
-			setMonthFilterOptions(() => ([...required_months.map(item => ({label: item, value: item}))]))
+			setMonthFilterOptions(() => ([...required_months.map(item => ({ label: item, value: item }))]))
 			setBudgetData(data?.data)
 		}
 	}, [data])
@@ -150,7 +153,7 @@ const BudgetHistory = () => {
 			<ReactModal
 				isOpen={openEdit}
 				handleToggle={closeEditModal}
-				title={ CONSTANTS.LABELS.BUDGET}
+				title={CONSTANTS.LABELS.BUDGET}
 			>
 				<CustomModalBody>
 					<Formik
@@ -219,16 +222,13 @@ const BudgetHistory = () => {
 									)}
 								/>
 
-								{!isLoadingEdit ?
-									(<button
-										type='submit'
-										className='budget-button col-md-6 mx-auto mb-2'
-									>{CONSTANTS.LABELS.EDIT}</button>
-									) : (
-										<div className="spinner-border" role="status">
-											<span className="sr-only"></span>
-										</div>
-									)}
+
+								<button
+									type='submit'
+									className='budget-button col-md-6 mx-auto mb-2'
+									disabled={isLoadingEdit}
+								>{isLoadingEdit ? <ShowLoader /> : CONSTANTS.LABELS.EDIT}</button>
+
 							</Form>
 						)}
 					</Formik>
@@ -236,17 +236,12 @@ const BudgetHistory = () => {
 			</ReactModal>
 
 			<div className='d-flex justify-content-end'>
-				<ReactSelect 
+				<ReactSelect
 					value={selectMonth}
-					onChange={(e) => {
-						// setBudgetData(() => (
-							
-						// ))
-						setSelectedMonth(e)
-					}}
+					onChange={(e) => setSelectedMonth(e)}
 					options={monthFilterOptions}
 				/>
-				{selectMonth ? (<button className='btn btn-danger ms-2' onClick={() => setSelectedMonth("")}>Reset</button>): null}
+				{selectMonth ? (<button className='btn btn-danger ms-2' onClick={() => setSelectedMonth("")}>Reset</button>) : null}
 			</div>
 
 			<ConfirmationModal
@@ -254,6 +249,7 @@ const BudgetHistory = () => {
 				closeModal={closeDeleteModal}
 				desc={"Are you sure you want to delete ?"}
 				buttonText={"Delete"}
+				isLoadingDelete={isLoadingDelete}
 				handleAction={handleDeleteSubmit}
 			/>
 

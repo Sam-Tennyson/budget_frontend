@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
 // components
+import ShowLoader from '../../components/atoms/ShowLoader'
 import TextField from '../../components/atoms/TextField'
 import CommonImage from './components/CommonImage'
 
@@ -46,7 +47,7 @@ const Register = () => {
 	const formikRef = useRef(null);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const [register] = useRegisterMutation();
+	const [register, { isLoading }] = useRegisterMutation();
 
 	const [showPassword, setShowPassword] = useState(false);
 
@@ -62,7 +63,6 @@ const Register = () => {
 			const payload = await register({ body_data }).unwrap();
 			formikRef.current.resetForm()
 			dispatch(setAuthData(payload))
-			debugger;
 			Snackbar.success(payload?.message);
 		} catch (error) {
 			Snackbar.error(error?.data?.message || CONSTANTS.ERROR_MESSAGE.SOMETHING_WENT_WRONG);
@@ -138,10 +138,15 @@ const Register = () => {
 									<p className="my-cursor-pointer text-end set-primary-color text-bold"
 										onClick={() => navigate(ROUTE_CONSTANTS.LOGIN)}
 									>If registered, Please login!</p>
+									
 									<button
 										type='submit'
 										className='budget-button col-md-6 mx-auto mb-2'
-									>{CONSTANTS.LABELS.REGISTER}</button>
+										disabled={isLoading}
+									>{isLoading? <ShowLoader />: CONSTANTS.LABELS.REGISTER}</button> 
+									
+										
+									
 								</Form>
 							)}
 						</Formik>

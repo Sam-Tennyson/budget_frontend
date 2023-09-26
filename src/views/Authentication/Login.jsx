@@ -21,6 +21,7 @@ import { setAuthData } from '../../reducer/AuthSlice'
 
 // styles
 import "./style.scss"
+import ShowLoader from '../../components/atoms/ShowLoader'
 
 const validationSchema = Yup.object({
 	email: Yup.string()
@@ -34,7 +35,7 @@ const Login = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
-	const [login] = useLoginMutation();
+	const [login, {isLoading}] = useLoginMutation();
 
 	const [showPassword, setShowPassword] = useState(false);
 
@@ -111,7 +112,8 @@ const Login = () => {
 									<button
 										type='submit'
 										className='budget-button col-md-6 mx-auto mb-2'
-									>{CONSTANTS.LABELS.LOGIN}</button>
+										disabled={isLoading}
+									>{isLoading? <ShowLoader />: CONSTANTS.LABELS.LOGIN}</button>
 								</Form>
 							)}
 						</Formik>

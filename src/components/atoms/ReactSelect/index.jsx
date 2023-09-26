@@ -3,7 +3,7 @@ import Select from "react-select";
 import "./style.scss";
 const ReactSelect = ({
     isMulti,
-    isSearchable,
+    isSearchable=false,
     value,
     onChange,
     placeholder,

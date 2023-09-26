@@ -22,50 +22,50 @@ const Home = () => {
 	const dispatch = useDispatch();
 	const currentYearRef = useRef(new Date().getFullYear());
 
-	let {start_date, end_date} = UTILS.getMonthStartAndEndDate(new Date().getMonth()+1, new Date().getFullYear())
-		
+	let { start_date, end_date } = UTILS.getMonthStartAndEndDate(new Date().getMonth() + 1, new Date().getFullYear())
+
 	const endDateRef = useRef(UTILS.getDateWithoutTimeZone(end_date));
 	const startDateRef = useRef(UTILS.getDateWithoutTimeZone(start_date));
 
-	const {data} = useGetBudgetGraphDataQuery({query_params: `?startDate=${startDateRef.current}&endDate=${endDateRef.current}`})
-	
-	const [getBudgetGraphData, {data: newData}] = useLazyGetBudgetGraphDataQuery()
+	const { data } = useGetBudgetGraphDataQuery({ query_params: `?startDate=${startDateRef.current}&endDate=${endDateRef.current}` })
+
+	const [getBudgetGraphData, { data: newData }] = useLazyGetBudgetGraphDataQuery()
 
 	const [monthsData, setMonthsData] = useState(monthArray)
-	const [selectMonth, setSelectedMonth] = useState(monthArray.find(item => item?.value === new Date().getMonth()+1))
-	
+	const [selectMonth, setSelectedMonth] = useState(monthArray.find(item => item?.value === new Date().getMonth() + 1))
+
 	const profileRed = useSelector((state) => state?.persistedReducer.auth.auth_data)
 	const budgetGraphRed = useSelector((state) => state?.persistedReducer.budget.graph_data) || []
 
 	useEffect(() => {
 		if (data) {
 			dispatch(setBudgetGraph(data?.data))
-			setSelectedMonth(monthArray.find(item => item?.value === new Date().getMonth()+1))
+			setSelectedMonth(monthArray.find(item => item?.value === new Date().getMonth() + 1))
 		}
 	}, [data])
-	
-	useEffect(() =>{
+
+	useEffect(() => {
 		if (newData) {
 			dispatch(setBudgetGraph(newData?.data))
 		}
 	}, [newData])
 
 	useEffect(() => {
-		
+
 		// make required month array
 		setMonthsData((prev) => {
 			let update_array = prev.map(item => {
-				let {start_date, end_date} = UTILS.getMonthStartAndEndDate(item?.value, currentYearRef.current)
+				let { start_date, end_date } = UTILS.getMonthStartAndEndDate(item?.value, currentYearRef.current)
 				let start_date_ISO = UTILS.getDateWithoutTimeZone(start_date)
 				let end_date_ISO = UTILS.getDateWithoutTimeZone(end_date)
-				return ({label: item?.label, value: item?.label, start_date_ISO, end_date_ISO})
+				return ({ label: item?.label, value: item?.label, start_date_ISO, end_date_ISO })
 			})
 			return update_array
 		})
 
 		if (data && Object?.keys(data)?.length) getBudgetGraphData({
 			query_params: `?startDate=${startDateRef.current}&endDate=${endDateRef.current}`
-		}) 
+		})
 
 	}, [])
 
@@ -78,20 +78,18 @@ const Home = () => {
 				</div>
 				{budgetGraphRed?.length ? (
 					<div className='col-md-6'>
-									<div className='d-flex justify-content-end'>
-										<ReactSelect 
-											value={selectMonth}
-											onChange={(e) => {
-												console.log(e);
-												getBudgetGraphData({
-													query_params: `?startDate=${e.start_date_ISO}&endDate=${e.end_date_ISO}`
-												})
-												setSelectedMonth(e)
-											}}
-											options={monthsData}
-										/>
-										{/* {selectMonth ? (<button className='btn btn-danger ms-2' onClick={() => setSelectedMonth("")}>Reset</button>): null} */}
-									</div>
+						<div className='d-flex justify-content-end'>
+							<ReactSelect
+								value={selectMonth}
+								options={monthsData}
+								onChange={(e) => {
+									console.log(e);
+									getBudgetGraphData({query_params: `?startDate=${e.start_date_ISO}&endDate=${e.end_date_ISO}`})
+									setSelectedMonth(e)
+								}}
+							/>
+
+						</div>
 						<ReactLineChart
 							labels={budgetGraphRed?.map(item => moment(item?.date).format("ll"))}
 							graph_data={budgetGraphRed?.map(item => item?.total_budget)}

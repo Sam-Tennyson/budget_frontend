@@ -1,11 +1,19 @@
+// libs
 import React from 'react'
-import ReactModal from '../ReactModal'
+
+// components
 import CustomModalBody from '../CustomModalBody'
+import ReactModal from '../ReactModal'
+import ShowLoader from '../ShowLoader'
+
+// constants
 import { CONSTANTS } from '../../../shared/constants'
+
+// styles
 import "./style.scss"
 
 const ConfirmationModal = ({
-	openModal, closeModal, desc, buttonText,
+	openModal, closeModal, desc, buttonText, isLoadingDelete=false,
 	handleAction = () => { }
 }) => {
 
@@ -16,7 +24,8 @@ const ConfirmationModal = ({
 			>{CONSTANTS.LABELS.CANCEL}</button>
 			<button className='btn-budget-danger mx-2'
 				onClick={handleAction}
-			>{buttonText}</button>
+				disabled={isLoadingDelete}
+			>{isLoadingDelete? <ShowLoader />: buttonText}</button>
 		</div>
 	)
 	return (
