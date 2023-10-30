@@ -2,6 +2,9 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import * as Yup from "yup"
+import { FieldArray, Form, Formik } from 'formik'
+import moment from 'moment'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 // constants
 import { CONSTANTS, RESPONSIVE } from '../../../shared/constants'
@@ -10,19 +13,25 @@ import { IMAGES } from '../../../shared/images'
 // reducer
 import { setAuthData } from '../../../reducer/AuthSlice'
 
-// styles
-import "./style.scss"
+// components
 import ReactModal from '../../atoms/ReactModal'
 import CustomModalBody from '../../atoms/CustomModalBody'
-import { ErrorMessage, Field, FieldArray, Form, Formik } from 'formik'
 import TextField from '../../atoms/TextField'
-import { useCreateBudgetMutation, useLazyGetBudgetDataQuery, useLazyGetBudgetGraphDataQuery } from '../../../services/BudgetServices'
-import Snackbar from '../../../shared/snackbar'
-import moment from 'moment'
-import { useLocation, useNavigate } from 'react-router-dom'
-import { ROUTE_CONSTANTS } from '../../../shared/routes'
-import { UTILS } from '../../../shared/utils'
 import ShowLoader from '../../atoms/ShowLoader'
+
+// hooks
+import useModal from '../../../hooks/useModal'
+
+// constants
+import Snackbar from '../../../shared/snackbar'
+import { ROUTE_CONSTANTS } from '../../../shared/routes'
+
+// services
+import { useCreateBudgetMutation, useLazyGetBudgetDataQuery, useLazyGetBudgetGraphDataQuery } from '../../../services/BudgetServices'
+
+// styles
+import "./style.scss"
+import { UTILS } from '../../../shared/utils'
 
 const TAB_DATA = [
     {
@@ -65,6 +74,11 @@ const Header = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
+    const {
+        openModal: isWriteModal,
+        handleCloseModal: closeWriteModal,
+        handleOpenModal: openWriteModal,
+    } = useModal();
     
 	let {start_date, end_date} = UTILS.getMonthStartAndEndDate(new Date().getMonth()+1, new Date().getFullYear())
 		
@@ -73,14 +87,12 @@ const Header = () => {
 
 
     const [createBudget, {isLoading}] = useCreateBudgetMutation()
-    const [getBudgetData, {isLoading: isGraphDataLoading}] = useLazyGetBudgetDataQuery();
+    const [getBudgetData] = useLazyGetBudgetDataQuery();
     const [getBudgetGraphData] = useLazyGetBudgetGraphDataQuery()
 
     const [isOpen, setIsOpen] = useState(true)
     const [isMobile, setIsMobile] = useState(false)
-    const [isWriteModal, setIsWriteModal] = useState(false)
 
-    const closeWriteModal = () => setIsWriteModal(false)
     const handleToggle = () => {
         if (isMobile) {
             setIsOpen((prev) => !prev)
@@ -109,7 +121,7 @@ const Header = () => {
             return;
         }
         if (data?.id === CONSTANTS.LABELS.WRITE_BUDGET) {
-            setIsWriteModal(true)
+            openWriteModal()
         }
         navigate({pathname: data?.path})
     }
