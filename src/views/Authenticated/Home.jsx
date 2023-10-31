@@ -12,7 +12,7 @@ import ReactLineChart from '../../components/atoms/ReactLineChart';
 import ReactSelect from '../../components/atoms/ReactSelect';
 
 // reducers
-import { setBudgetGraph } from '../../reducer/Budget';
+import { setBudgetGraph, setWriteBudgetModal } from '../../reducer/Budget';
 
 // utils & constants
 import { UTILS } from '../../shared/utils';
@@ -36,6 +36,18 @@ const Home = () => {
 
 	const profileRed = useSelector((state) => state?.persistedReducer.auth.auth_data)
 	const budgetGraphRed = useSelector((state) => state?.persistedReducer.budget.graph_data) || []
+
+	  
+	const controlScrollMagic = () => {
+		// Scroll to the bottom of the page
+		window.scrollTo(0, document.documentElement.scrollHeight);
+
+		// Wait for a few seconds
+		setTimeout(() => {
+			// Scroll to the top of the page
+			window.scrollTo(0, 0);
+		}, 2000); // 2 seconds
+	}
 
 	useEffect(() => {
 		if (data) {
@@ -66,7 +78,7 @@ const Home = () => {
 		if (data && Object?.keys(data)?.length) getBudgetGraphData({
 			query_params: `?startDate=${startDateRef.current}&endDate=${endDateRef.current}`
 		})
-
+		controlScrollMagic()
 	}, [])
 
 	return (
@@ -74,6 +86,9 @@ const Home = () => {
 			<div className="row">
 				<div className="col-md-6">
 					<h2>Welcome {profileRed?.name} 🎉!</h2>
+					<div className="alert alert-info fw-bold" role="alert">
+						Add your monthly budget <span className='link-class' onClick={() => dispatch(setWriteBudgetModal(true))}>Click Here</span>
+					</div>
 					<SecondHeader />
 				</div>
 				{budgetGraphRed?.length ? (
@@ -84,7 +99,7 @@ const Home = () => {
 								options={monthsData}
 								onChange={(e) => {
 									console.log(e);
-									getBudgetGraphData({query_params: `?startDate=${e.start_date_ISO}&endDate=${e.end_date_ISO}`})
+									getBudgetGraphData({ query_params: `?startDate=${e.start_date_ISO}&endDate=${e.end_date_ISO}` })
 									setSelectedMonth(e)
 								}}
 							/>
