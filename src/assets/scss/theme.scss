@@ -218,6 +218,7 @@ h2 {
 	letter-spacing: 0.7rem;
 	font-weight: 700;
 	text-transform: uppercase;
+	word-break: break-all;
 }
 
 @media (max-width: 768px) {
@@ -234,12 +235,12 @@ h2 {
 	color: $primary-color;
 	border: none;
 	font-size: 1.2rem;
+	text-transform: uppercase;
 	width: 120px;
 	&:hover {
-		font-weight: 600;
-		background: #fff;
-		color: $secondary-color;
-		border: 2px solid $primary-color;
+		font-weight: bold;
+		// color: $secondary-color;
+		// background: $primary-color;
 	}
 }
 
