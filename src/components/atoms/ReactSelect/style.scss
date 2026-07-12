@@ -1,4 +1,4 @@
-@import "../../../assets/scss/base.scss";
+@use "../../../assets/scss/base.scss" as *;
 
 .react-select-container {
     font-family: var(--bs-body-font-family);

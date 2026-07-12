@@ -29,6 +29,8 @@ const validationSchema = Yup.object({
 	name: Yup.string().trim().required(CONSTANTS.ERROR_MESSAGE.FIELD_REQUIRED),
 	phone: Yup.string().trim()
 		.required(CONSTANTS.ERROR_MESSAGE.FIELD_REQUIRED)
+		.min(10, "Phone number must be at least 10 digits")
+		.max(10, "Phone number must be at most 10 digits")
 		.matches(REGEX.IS_PHONE_NUMBER, "Invalid phone number"),
 	email: Yup.string()
 		.trim()
@@ -110,6 +112,7 @@ const Register = () => {
 										<TextField
 											name={"phone"}
 											placeholder={CONSTANTS.PLACEHOLDER.PHONE}
+											maxLength={10}
 										/>
 									</div>
 
