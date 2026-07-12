@@ -1,4 +1,4 @@
-@import "../../../assets/scss/base.scss";
+@use "../../../assets/scss/base.scss" as *;
 
 .header {
     position: fixed;
@@ -106,4 +106,3 @@
 //         right: 0;
 //     }
 // }
-

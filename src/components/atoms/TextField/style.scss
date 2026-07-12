@@ -1,4 +1,4 @@
-@import "../../../assets/scss/base.scss";
+@use "../../../assets/scss/base.scss" as *;
 
 .border-radius-form {
     border-radius: 20px;

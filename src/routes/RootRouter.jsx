@@ -37,7 +37,7 @@ const GuestRoutes = () => {
 	routes.push(defaultGuestRoute);
 	const routing = useRoutes(routes);
 	return (
-		<Suspense fallback={<Fallback />}>
+		<Suspense>
 			<PublicLayout>{routing}</PublicLayout>
 		</Suspense>
 	);
