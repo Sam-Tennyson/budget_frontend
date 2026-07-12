@@ -53,7 +53,7 @@ const AuthenticatedRoutes = () => {
 	routes.push(defaultRoute);
 	const routing = useRoutes(routes);
 	return (
-		<Suspense fallback={<Fallback />}>
+		<Suspense>
 			<PrivateLayout>{routing}</PrivateLayout>
 		</Suspense>
 	)

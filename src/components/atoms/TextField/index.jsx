@@ -11,7 +11,8 @@ const TextField = (props) => {
 	return (
 		<>
 			<input
-				className={"form-control border-radius-form"}
+				// className={"form-control border-radius-form"}
+				className={`w-full p-2 border border-black rounded-md focus:outline-none  relative`}
 				{...field}
 				{...props}
 				autoComplete="off"

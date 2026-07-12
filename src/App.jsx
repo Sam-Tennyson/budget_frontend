@@ -29,10 +29,6 @@ function App() {
 					>
 						<SnackbarUtilConfig />
 						<RootRouter />
-
-						<h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
 					</SnackbarProvider>
 				</PersistGate>
 			</Provider>
