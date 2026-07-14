@@ -1,29 +1,29 @@
-@use "../../../assets/scss/base.scss" as *;
+@use '../../../assets/scss/base.scss' as *;
 
 .budget-class {
-    text-align: center;
-    h1 {
-        color: $primary-color;
-        font-size: 2rem;
-        letter-spacing: 2rem;
-        font-weight: 700;
-        text-transform: uppercase;
-    }
-    h2 {
-        color: $secondary-color;
-        font-size: 2rem;
-        line-height: 5rem;
-        letter-spacing: 1rem;
-        font-weight: 700;
-        text-transform: uppercase;
-    }
-    // @media (max-width: 768px) {
-    //     h1 {
-    //         font-size: 1.5rem;
-    //     }
-    //     h2 {
-    //         font-size: 1.2rem;
-          
-    //     }
-    // }
+  text-align: center;
+  h1 {
+    color: $primary-color;
+    font-size: 2rem;
+    letter-spacing: 2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  h2 {
+    color: $secondary-color;
+    font-size: 2rem;
+    line-height: 5rem;
+    letter-spacing: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  // @media (max-width: 768px) {
+  //     h1 {
+  //         font-size: 1.5rem;
+  //     }
+  //     h2 {
+  //         font-size: 1.2rem;
+
+  //     }
+  // }
 }

@@ -1,320 +1,316 @@
-@use "../../assets/scss/base.scss" as *;
+@use '../../assets/scss/base.scss' as *;
 
 @import url('https://fonts.googleapis.com/css2?family=Arvo&family=Assistant&family=Dancing+Script&family=Lora&display=swap');
 
 body {
-	font-size: $body-font-size;
-	font-family: 'Lora', serif;
+  font-size: $body-font-size;
+  font-family: 'Lora', serif;
 }
 
 .link-class {
-	cursor: pointer;
-	text-decoration: underline;
-	color: rgb(34, 66, 206);
+  cursor: pointer;
+  text-decoration: underline;
+  color: rgb(34, 66, 206);
 }
 
 .form-control {
-	color: grey;
-	background: none;
-	border: none;
-	border-bottom: 1px solid grey;
-	display: block;
-	width: 100%;
-	padding: 0.422rem 1.5rem;
-	font-size: 0.9375rem;
-	font-weight: 400;
-	line-height: 1.5;
-	background-color: #fff;
-	background-clip: padding-box;
-	-webkit-appearance: none;
-	-moz-appearance: none;
-	appearance: none;
-	border-radius: 0.375rem;
+  color: grey;
+  background: none;
+  border: none;
+  border-bottom: 1px solid grey;
+  display: block;
+  width: 100%;
+  padding: 0.422rem 1.5rem;
+  font-size: 0.9375rem;
+  font-weight: 400;
+  line-height: 1.5;
+  background-color: #fff;
+  background-clip: padding-box;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 0.375rem;
 
-	&:focus {
-		box-shadow: 0 0.125rem 0.25rem rgba(165, 163, 174, 0.3);
-		background-color: #fff;
-		color: #6f6b7d;
-		outline: 0;
-	}
+  &:focus {
+    box-shadow: 0 0.125rem 0.25rem rgba(165, 163, 174, 0.3);
+    background-color: #fff;
+    color: #6f6b7d;
+    outline: 0;
+  }
 }
 
-.form-control[type=file] {
-	overflow: hidden;
+.form-control[type='file'] {
+  overflow: hidden;
 }
 
-.form-control[type=file]:not(:disabled):not([readonly]) {
-	cursor: pointer;
+.form-control[type='file']:not(:disabled):not([readonly]) {
+  cursor: pointer;
 }
 
 .form-control::-webkit-date-and-time-value {
-	height: 1.5em;
+  height: 1.5em;
 }
 
 .form-control::-moz-placeholder {
-	color: #b7b5be;
-	opacity: 1;
+  color: #b7b5be;
+  opacity: 1;
 }
 
 .form-control::placeholder {
-	color: #b7b5be;
-	opacity: 1;
+  color: #b7b5be;
+  opacity: 1;
 }
 
 .form-control:disabled {
-	background-color: rgba(75, 70, 92, 0.08);
-	opacity: 1;
+  background-color: rgba(75, 70, 92, 0.08);
+  opacity: 1;
 }
 
 .form-control::file-selector-button {
-	padding: 0.422rem 0.875rem;
-	margin: -0.422rem -0.875rem;
-	-webkit-margin-end: 0.875rem;
-	margin-inline-end: 0.875rem;
-	color: #6f6b7d;
-	background-color: #fff;
-	pointer-events: none;
-	border-color: inherit;
-	border-style: solid;
-	border-width: 0;
-	border-inline-end-width: 1px;
-	border-radius: 0;
-	transition: all 0.2s ease-in-out;
+  padding: 0.422rem 0.875rem;
+  margin: -0.422rem -0.875rem;
+  -webkit-margin-end: 0.875rem;
+  margin-inline-end: 0.875rem;
+  color: #6f6b7d;
+  background-color: #fff;
+  pointer-events: none;
+  border-color: inherit;
+  border-style: solid;
+  border-width: 0;
+  border-inline-end-width: 1px;
+  border-radius: 0;
+  transition: all 0.2s ease-in-out;
 }
 
 @media (prefers-reduced-motion: reduce) {
-	.form-control::file-selector-button {
-		transition: none;
-	}
+  .form-control::file-selector-button {
+    transition: none;
+  }
 }
 
 .form-control:hover:not(:disabled):not([readonly])::file-selector-button {
-	background-color: #f2f2f2;
+  background-color: #f2f2f2;
 }
 
 .form-control-plaintext {
-	display: block;
-	width: 100%;
-	padding: 0.422rem 0;
-	margin-bottom: 0;
-	line-height: 1.5;
-	color: #6f6b7d;
-	background-color: transparent;
-	border: solid transparent;
-	border-width: 1px 0;
+  display: block;
+  width: 100%;
+  padding: 0.422rem 0;
+  margin-bottom: 0;
+  line-height: 1.5;
+  color: #6f6b7d;
+  background-color: transparent;
+  border: solid transparent;
+  border-width: 1px 0;
 }
 
 .form-control-plaintext:focus {
-	outline: 0;
+  outline: 0;
 }
 
 .form-control-plaintext.form-control-sm,
 .form-control-plaintext.form-control-lg {
-	padding-right: 0;
-	padding-left: 0;
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .form-control-sm {
-	min-height: calc(1.5em + 0.532rem + 2px);
-	padding: 0.266rem 0.625rem;
-	font-size: 0.8125rem;
-	border-radius: 0.25rem;
+  min-height: calc(1.5em + 0.532rem + 2px);
+  padding: 0.266rem 0.625rem;
+  font-size: 0.8125rem;
+  border-radius: 0.25rem;
 }
 
 .form-control-sm::file-selector-button {
-	padding: 0.266rem 0.625rem;
-	margin: -0.266rem -0.625rem;
-	-webkit-margin-end: 0.625rem;
-	margin-inline-end: 0.625rem;
+  padding: 0.266rem 0.625rem;
+  margin: -0.266rem -0.625rem;
+  -webkit-margin-end: 0.625rem;
+  margin-inline-end: 0.625rem;
 }
 
 .form-control-lg {
-	min-height: calc(1.5em + 1.188rem + 2px);
-	padding: 0.594rem 1rem;
-	font-size: 1.125rem;
-	border-radius: 0.5rem;
+  min-height: calc(1.5em + 1.188rem + 2px);
+  padding: 0.594rem 1rem;
+  font-size: 1.125rem;
+  border-radius: 0.5rem;
 }
 
 .form-control-lg::file-selector-button {
-	padding: 0.594rem 1rem;
-	margin: -0.594rem -1rem;
-	-webkit-margin-end: 1rem;
-	margin-inline-end: 1rem;
+  padding: 0.594rem 1rem;
+  margin: -0.594rem -1rem;
+  -webkit-margin-end: 1rem;
+  margin-inline-end: 1rem;
 }
 
 textarea.form-control {
-	min-height: calc(1.5em + 0.844rem + 2px);
+  min-height: calc(1.5em + 0.844rem + 2px);
 }
 
 textarea.form-control-sm {
-	min-height: calc(1.5em + 0.532rem + 2px);
+  min-height: calc(1.5em + 0.532rem + 2px);
 }
 
 textarea.form-control-lg {
-	min-height: calc(1.5em + 1.188rem + 2px);
+  min-height: calc(1.5em + 1.188rem + 2px);
 }
 
 .form-control-color {
-	width: 3rem;
-	height: calc(1.5em + 0.844rem + 2px);
-	padding: 0.422rem;
+  width: 3rem;
+  height: calc(1.5em + 0.844rem + 2px);
+  padding: 0.422rem;
 }
 
 .form-control-color:not(:disabled):not([readonly]) {
-	cursor: pointer;
+  cursor: pointer;
 }
 
 .form-control-color::-moz-color-swatch {
-	border: 0 !important;
-	border-radius: 0.375rem;
+  border: 0 !important;
+  border-radius: 0.375rem;
 }
 
 .form-control-color::-webkit-color-swatch {
-	border-radius: 0.375rem;
+  border-radius: 0.375rem;
 }
 
 .form-control-color.form-control-sm {
-	height: calc(1.5em + 0.532rem + 2px);
+  height: calc(1.5em + 0.532rem + 2px);
 }
 
 .form-control-color.form-control-lg {
-	height: calc(1.5em + 1.188rem + 2px);
+  height: calc(1.5em + 1.188rem + 2px);
 }
 
 ::placeholder {
-	color: grey !important;
-	font-size: 0.9rem;
+  color: grey !important;
+  font-size: 0.9rem;
 }
 
 .heading_title {
-	position: relative;
-	display: inline-block;
-	padding-bottom: 10px;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 10px;
 
-	&::after {
-		position: absolute;
-		bottom: 0;
-		left: 0;
-		background: $text-color;
-		content: '';
-		width: 100px;
-		height: 3px;
-		border-radius: 0;
-	}
+  &::after {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background: $text-color;
+    content: '';
+    width: 100px;
+    height: 3px;
+    border-radius: 0;
+  }
 }
 
 .error {
-	font-size: 2rem;
-	padding: 10px 10px;
-	border-radius: 30px;
-	color: $white-color;
-	background-color: indianred;
+  font-size: 2rem;
+  padding: 10px 10px;
+  border-radius: 30px;
+  color: $white-color;
+  background-color: indianred;
 }
 
 h2 {
-	color: $secondary-color;
-	font-size: 2rem;
-	line-height: 5rem;
-	letter-spacing: 0.7rem;
-	font-weight: 700;
-	text-transform: uppercase;
-	word-break: break-all;
+  color: $secondary-color;
+  font-size: 2rem;
+  line-height: 5rem;
+  letter-spacing: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  word-break: break-all;
 }
 
 @media (max-width: 768px) {
-	h2 {
-		font-size: 1.2rem;
-	}
+  h2 {
+    font-size: 1.2rem;
+  }
 }
 
 .budget-button {
-	display: block;
-	border-radius: 8px;
-	padding: 0.5rem ;
-	background: $secondary-color;
-	color: $primary-color;
-	border: none;
-	font-size: 1.2rem;
-	text-transform: uppercase;
-	width: 120px;
-	&:hover {
-		font-weight: bold;
-		// color: $secondary-color;
-		// background: $primary-color;
-	}
+  display: block;
+  border-radius: 8px;
+  padding: 0.5rem;
+  background: $secondary-color;
+  color: $primary-color;
+  border: none;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  width: 120px;
+  &:hover {
+    font-weight: bold;
+    // color: $secondary-color;
+    // background: $primary-color;
+  }
 }
 
 .budget-button-clear {
-	display: block;
-	border-radius: 70px;
-	padding: 0.5rem ;
-	background: $primary-color;
-	color: $secondary-color;
-	border: none;
-	font-size: 1.2rem;
-	width: 120px;
+  display: block;
+  border-radius: 70px;
+  padding: 0.5rem;
+  background: $primary-color;
+  color: $secondary-color;
+  border: none;
+  font-size: 1.2rem;
+  width: 120px;
 }
-
-
 
 .set-primary-color {
-	color: $primary-color;
+  color: $primary-color;
 }
 
-
 .secondary-color {
-	color: $secondary-color;
+  color: $secondary-color;
 }
 
 .my-cursor-pointer {
-	cursor: pointer;
+  cursor: pointer;
 }
 
 .field-class {
-	i {
-		position: absolute;
-		top: 12px;
-		left: 6px;
-	}
-	span {
-		img {
-			position: absolute;
-			top: 12px;
-			right: 0;
-			height: 14px;
-			cursor: pointer;
-		}
-	}
+  i {
+    position: absolute;
+    top: 12px;
+    left: 6px;
+  }
+  span {
+    img {
+      position: absolute;
+      top: 12px;
+      right: 0;
+      height: 14px;
+      cursor: pointer;
+    }
+  }
 }
-
 
 .btn-budget-secondary {
-	background: $secondary-color;
-	border: none;
-	border-radius: 8px;
-	outline: none;
-	padding: 10px 10px;
-	min-width: 100px;
-	color: #fff;
-	&:hover {
-		font-weight: 600;
-		background: #fff;
-		border: 2px solid $secondary-color;
-		color: $secondary-color
-	}
+  background: $secondary-color;
+  border: none;
+  border-radius: 8px;
+  outline: none;
+  padding: 10px 10px;
+  min-width: 100px;
+  color: #fff;
+  &:hover {
+    font-weight: 600;
+    background: #fff;
+    border: 2px solid $secondary-color;
+    color: $secondary-color;
+  }
 }
 .btn-budget-danger {
-	background: $primary-color;
-	border: none;
-	border-radius: 8px;
-	outline: none;
-	padding: 10px 10px;
-	min-width: 100px;
-	color: #fff;
-	&:hover {
-		font-weight: 600;
-		background: #fff;
-		border: 2px solid $primary-color;
-		color: $primary-color
-	}
+  background: $primary-color;
+  border: none;
+  border-radius: 8px;
+  outline: none;
+  padding: 10px 10px;
+  min-width: 100px;
+  color: #fff;
+  &:hover {
+    font-weight: 600;
+    background: #fff;
+    border: 2px solid $primary-color;
+    color: $primary-color;
+  }
 }

@@ -14,7 +14,8 @@
     "build:dev": "vite build --mode production",
     "build:production": "vite build --mode production",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "format": "prettier . --write"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
@@ -46,6 +47,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
     "postcss": "^8.5.17",
+    "prettier": "3.9.5",
     "sass": "^1.66.1",
     "tailwindcss": "^3.4.19",
     "vite": "^6.4.3"

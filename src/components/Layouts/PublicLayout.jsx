@@ -1,11 +1,7 @@
-import React from 'react'
+import React from 'react';
 
-const PublicLayout = ({children}) => {
-  return (
-    <>
-        {children}
-    </>
-  )
-}
+const PublicLayout = ({ children }) => {
+  return <>{children}</>;
+};
 
-export default PublicLayout
+export default PublicLayout;

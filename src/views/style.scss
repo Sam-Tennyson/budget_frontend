@@ -1,19 +1,19 @@
-@use "../assets/scss/base.scss" as *;
+@use '../assets/scss/base.scss' as *;
 
 .dashboard-button {
-    em {
-        img {
-            height: 200px;
-        }
+  em {
+    img {
+      height: 200px;
     }
-    button {
-        display: block;
-        border-radius: 70px;
-        padding: 0.6rem ;
-        background: $secondary-color;
-        color: $primary-color;
-        border: none;
-        font-size: 2rem;
-        width: 250px;
-    }
+  }
+  button {
+    display: block;
+    border-radius: 70px;
+    padding: 0.6rem;
+    background: $secondary-color;
+    color: $primary-color;
+    border: none;
+    font-size: 2rem;
+    width: 250px;
+  }
 }

@@ -1,11 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const AppLayout = ({ children }) => {
-    return (
-        <>
-            {children}
-        </>
-    )
-}
+  return <>{children}</>;
+};
 
-export default AppLayout
+export default AppLayout;

@@ -1,32 +1,28 @@
 em {
-    cursor: pointer;
-    img {
-        height: 75vh;
-        width: 25vw;
-    }
+  cursor: pointer;
+  img {
+    height: 75vh;
+    width: 25vw;
+  }
 }
 
-
 @media (max-width: 1200px) {
-	
 }
 
 @media (max-width: 991px) {
-	
 }
 
 @media (max-width: 768px) {
-    em {
-        img {
-            height: 30vh;
-            width: 100%;
-        }
+  em {
+    img {
+      height: 30vh;
+      width: 100%;
     }
+  }
 }
 
-@media (max-width:450px) {
+@media (max-width: 450px) {
 }
 
 @media (max-width: 365px) {
-
 }
